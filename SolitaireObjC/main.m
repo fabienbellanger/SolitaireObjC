@@ -15,11 +15,11 @@ int main(int argc, const char * argv[])
 {
   @autoreleasepool
 	{
-		BoardType *currentBoard = [[[BoardTypeList initList] getAllTypes] objectAtIndex:2];
+		BoardType *currentBoard = [[[BoardTypeList initList] getAllTypes] objectAtIndex:1];
 		Board *board = [[Board alloc] initWithBoardType:currentBoard];
 		[board drawBoard];
 		
-		NSLog(@"Is game winned? %@", board.state);
+		/*NSLog(@"Is game winned? %@", board.state);
 		
 		// Tests 2 mouvements possibles (coins)
 		NSLog(@" 1 Movement autorized? %@", ([board isMovementAutorized:0 yFrom:0 xTo:0 yTo:2]) ? @"yes" : @"no");
@@ -55,13 +55,14 @@ int main(int argc, const char * argv[])
 		NSLog(@"21 Movement autorized? %@", ([board isMovementAutorized:2 yFrom:2 xTo:2 yTo:0]) ? @"yes" : @"no");
 		NSLog(@"22 Movement autorized? %@", ([board isMovementAutorized:2 yFrom:2 xTo:0 yTo:2]) ? @"yes" : @"no");
 		NSLog(@"23 Movement autorized? %@", ([board isMovementAutorized:2 yFrom:2 xTo:2 yTo:4]) ? @"yes" : @"no");
-		NSLog(@"24 Movement autorized? %@", ([board isMovementAutorized:2 yFrom:2 xTo:4 yTo:2]) ? @"yes" : @"no");
+		NSLog(@"24 Movement autorized? %@", ([board isMovementAutorized:2 yFrom:2 xTo:4 yTo:2]) ? @"yes" : @"no");*/
 		
 		// Tests déplacements
-		[board moveTo:0 yFrom:0 xTo:2 yTo:0];
+		/*[board moveTo:0 yFrom:0 xTo:2 yTo:0];
 		[board moveTo:2 yFrom:0 xTo:4 yTo:0];
-		[board drawBoard];
+		[board drawBoard];*/
 
+		NSLog(@"Nombre de mouvements possibles restant : %d", [board nbTotalPossibleMovements]);
   }
 	
 	return 0;

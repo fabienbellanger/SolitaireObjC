@@ -315,6 +315,44 @@
 
 
 /**
+ * Nombre de déplacements possible
+ *
+ */
+- (int) nbPossibleMovements: (int)x
+													y: (int)y
+{
+	int nb = 0;
+	NSString *v1, *v2;
+	
+	// Haut
+	v1 = [self getValueToMovement:x y:y direction:@"up" step:1];
+	v2 = [self getValueToMovement:x y:y direction:@"up" step:2];
+	if ([v1 isEqualToString:@"1"] && [v2 isEqualToString:@"2"])
+		nb++;
+	
+	// Bas
+	v1 = [self getValueToMovement:x y:y direction:@"down" step:1];
+	v2 = [self getValueToMovement:x y:y direction:@"down" step:2];
+	if ([v1 isEqualToString:@"1"] && [v2 isEqualToString:@"2"])
+		nb++;
+	
+	// Droite
+	v1 = [self getValueToMovement:x y:y direction:@"right" step:1];
+	v2 = [self getValueToMovement:x y:y direction:@"right" step:2];
+	if ([v1 isEqualToString:@"1"] && [v2 isEqualToString:@"2"])
+		nb++;
+	
+	// Gauche
+	v1 = [self getValueToMovement:x y:y direction:@"left" step:1];
+	v2 = [self getValueToMovement:x y:y direction:@"left" step:2];
+	if ([v1 isEqualToString:@"1"] && [v2 isEqualToString:@"2"])
+		nb++;
+	
+	return nb;
+}
+
+
+/**
  * Valeur au déplacement
  *
  */
@@ -323,6 +361,7 @@
 												direction: (NSString *)direction
 														 step: (int)step
 {
+	int length	= (int)[_boardType.grid count];
 	NSString *r;
 	int xTo, yTo;
 	
@@ -352,7 +391,14 @@
 			yTo = yFrom;
 		}
 		
-		r = [[_grid objectAtIndex:yTo] objectAtIndex:xTo];
+		if (xTo >= 0 && xTo < length && yTo >= 0 && yTo < length)
+			r = [[_grid objectAtIndex:yTo] objectAtIndex:xTo];
+		else
+			r = @"0";
+	}
+	else
+	{
+		r = @"0";
 	}
 	
 	return r;
@@ -420,12 +466,29 @@
 
 
 /**
- * Y a t-il encore des possibilités ?
- * TODO
+ * Nombre de mouvements encore possibles
+ *
  */
-- (BOOL) isGameWinnable
+- (int) nbTotalPossibleMovements
 {
-	return false;
+	int length	= (int)[_boardType.grid count];
+	int nb			= 0;
+	int i, j;
+	
+	i = 0;
+	while (!(i == length))
+	{
+		j = 0;
+		while (!(j == length))
+		{
+			nb += [self nbPossibleMovements:i y:j];
+			j++;
+		}
+		
+		i++;
+	}
+	
+	return nb;
 }
 
 @end
